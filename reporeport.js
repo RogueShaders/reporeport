@@ -1,3 +1,11 @@
 #!/usr/bin/env node
-console.log("RepoReport working ✅");
-console.log("Args:", process.argv.slice(2));
+const { execSync } = require("child_process");
+
+const status = execSync("git status --porcelain", { encoding: "utf8" });
+
+if (status.trim() === "") {
+  console.log("✅ Clean: no changes detected");
+} else {
+  console.log("⚠️ Changes detected:");
+  console.log(status.trimEnd());
+}
