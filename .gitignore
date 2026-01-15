@@ -1,0 +1,38 @@
+# =========================
+# Dependencies / build junk
+# =========================
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+
+# =========================
+# Logs
+# =========================
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+*.log
+
+# =========================
+# RepoReport generated output
+# =========================
+reports/
+snapshots/
+
+# =========================
+# Secrets / env files
+# =========================
+.env
+.env.*
+*.pem
+*.key
+
+# =========================
+# OS / editor junk
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
