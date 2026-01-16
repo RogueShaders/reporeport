@@ -62,7 +62,7 @@ git add .
 reporeport --ai
 ```
 - RepoReport prints somthing like:
-```bash
+
 SUBJECT: chore: tighten local LLM prompt constraints
 BODY: Improves commit suggestion reliability by enforcing stricter output rules.
 COMMAND: git commit -m "..." -m "..."
