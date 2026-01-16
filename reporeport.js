@@ -96,8 +96,9 @@ You are writing a git commit message for the code DIFF.
 RULES:
 - Subject must start with: feat:, fix:, chore:, docs:, refactor:, test:
 - Subject must be <= 72 characters
-- Body must be ONE sentence: what changed + why it matters
-- Do NOT mention: "DIFF", "below", "prompt", "feature", "generate a commit message"
+- Subject must describe the actual code change (not generic)
+- Body must be ONE sentence (<= 120 characters): what changed + why it matters
+- Do NOT mention: "DIFF", "below", "prompt", "rules", "feature", "generate a commit message"
 - Output must be EXACTLY 3 lines and nothing else.
 - COMMAND must include BOTH -m flags.
 
