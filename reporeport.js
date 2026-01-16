@@ -91,13 +91,15 @@ ${diff}
   const trimmedDiff = diff.slice(0, 8000);
 
   const prompt = `
-You are writing a git commit message for the DIFF below.
+You are writing a git commit message for the code DIFF.
 
 RULES:
 - Subject must start with: feat:, fix:, chore:, docs:, refactor:, test:
 - Subject must be <= 72 characters
-- Body must explain WHAT changed and WHY in 1 sentence
-- Output must be EXACTLY 3 lines, nothing else.
+- Body must be ONE sentence: what changed + why it matters
+- Do NOT mention: "DIFF", "below", "prompt", "feature", "generate a commit message"
+- Output must be EXACTLY 3 lines and nothing else.
+- COMMAND must include BOTH -m flags.
 
 OUTPUT FORMAT (exact):
 SUBJECT: <text>
