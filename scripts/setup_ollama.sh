@@ -24,7 +24,7 @@ else
 fi
 
 # 2) Pull a small fast model (good for dev)
-MODEL="llama3.2:1b"
+MODEL="qwen2.5-coder:latest"
 echo "Pulling model: $MODEL"
 ollama pull "$MODEL"
 
