@@ -5,7 +5,7 @@ const { execSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
-async function ollamaGenerate(prompt, model = "llama3.2:1b") {
+async function ollamaGenerate(prompt, model = "qwen2.5-coder:latest") {
   const res = await fetch("http://localhost:11434/api/generate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -55,7 +55,11 @@ async function main() {
     const args = process.argv.slice(2);
     const useOllama = args.includes("--ollama");
 
-    const diff = run("git diff --staged");
+    const diff = run("git diff --staged -U10");
+
+    const files = run("git diff --staged --name-only");
+    const stat  = run("git diff --staged --stat");
+
   if (!diff) {
     console.log("⚠️ RepoReport: no staged changes found.");
     console.log("   Stage files first: git add <files>");
@@ -106,6 +110,12 @@ OUTPUT FORMAT (exact):
 SUBJECT: <text>
 BODY: <text>
 COMMAND: git commit -m "<subject>" -m "<body>"
+
+FILES CHANGED:
+${files}
+
+DIFF STAT:
+${stat}
 
 DIFF START
 ${trimmedDiff}
