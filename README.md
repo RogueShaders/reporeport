@@ -2,52 +2,29 @@
 
 RepoReport is a **CLI tool** that turns your git changes into clean, reusable artifacts:
 
-- ✅ a **checkpoint / daily report** (Markdown)
-- ✅ **better commit messages** (instead of `git commit -m "."`)
-- ✅ optional “build in public” post drafts (later)
+- ✅ Generates a **daily/checkpoint report** (Markdown)
+- ✅ Helps you create **better commits** (without `git commit -m "."`)
+- ✅ Optional **local LLM commit suggestions** via Ollama (`--ollama`)
 
-The goal is simple: **ship more cleanly + track progress + share updates without friction.**
+The goal: **ship clean checkpoints + track progress + stay consistent**.
 
 ---
 
 ## Status (current)
-✅ CLI scaffold is working.
 
-Right now `reporeport` runs and prints a stub message.
+✅ CLI works  
+✅ Writes reports (v0.1)  
+✅ Local LLM mode works (`--ollama`) — prints a suggested commit command
 
-Next milestone (CP1):  
-➡️ `reporeport` reads `git diff --staged` and writes a Markdown report into `./reports/YYYY-MM-DD.md`
-
----
-
-## Features (planned roadmap)
-
-### v0.1 — Report Generation (core)
-- Read staged changes: `git diff --staged`
-- Create `./reports/`
-- Write `./reports/YYYY-MM-DD.md` with:
-  - date/time
-  - branch
-  - raw staged diff
-
-### v0.2 — Commit Suggestions
-- Print 3 suggested commit messages
-- Rules-based (no AI needed)
-
-### v0.3 — AI Commit Builder (optional)
-- `reporeport --ai`
-- Sends the diff to an LLM to generate:
-  - commit subject + body
-  - copy/paste commit command
-- **Never auto-commits**
-- **Never auto-posts**
+RepoReport **never auto-commits**. It only prints a command you can copy/paste.
 
 ---
 
 ## Requirements
-- Node.js **18+**
-- Git installed
-- Run inside a git repository
+
+- **Node.js 18+**
+- **Git**
+- (Optional) **Ollama** for local LLM suggestions
 
 Check versions:
 
@@ -55,4 +32,40 @@ Check versions:
 node -v
 npm -v
 git --version
+```
+## Install (local dev)
+```bash
+git clone https://github.com/RogueShaders/reporeport.git
+cd reporeport
+
+chmod +x reporeport.js
+npm link
+
+reporeport
+```
+✅ You should see output confirming the CLI runs.
+
+## Usage
+ - Generate a report (default)
+```bash
+git add .
+reporeport
+```
+- This writes a markdown report like:
+```css
+reports/YYYY-MM-DD.md
+```
+
+## Generate a report + local LLM commit suggestion
+```bash
+git add .
+reporeport --ai
+```
+- RepoReport prints somthing like:
+```bash
+SUBJECT: chore: tighten local LLM prompt constraints
+BODY: Improves commit suggestion reliability by enforcing stricter output rules.
+COMMAND: git commit -m "..." -m "..."
+
+
 
