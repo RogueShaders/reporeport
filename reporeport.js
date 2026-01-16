@@ -53,7 +53,7 @@ async function main() {
   }
 
     const args = process.argv.slice(2);
-    const useOllama = args.includes("--ollama");
+    const useOllama = args.includes("--ai");
 
     const diff = run("git diff --staged -U10");
 
