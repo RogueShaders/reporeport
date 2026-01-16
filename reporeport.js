@@ -91,21 +91,20 @@ ${diff}
   const trimmedDiff = diff.slice(0, 8000);
 
   const prompt = `
-    Generate a git commit message for these staged changes.
+You are writing a git commit message for the DIFF below.
 
-Rules:
-- SUBJECT must start with one of: feat:, fix:, chore:, docs:, refactor:, test:
-- SUBJECT must be <= 72 chars
-- BODY must explain WHAT changed and WHY (not repeating the subject)
-- COMMAND must be copy/paste safe
+RULES:
+- Subject must start with: feat:, fix:, chore:, docs:, refactor:, test:
+- Subject must be <= 72 characters
+- Body must explain WHAT changed and WHY in 1 sentence
+- Output must be EXACTLY 3 lines, nothing else.
 
-Output EXACTLY this format:
-
-SUBJECT: ...
-BODY: ...
+OUTPUT FORMAT (exact):
+SUBJECT: <text>
+BODY: <text>
 COMMAND: git commit -m "<subject>" -m "<body>"
 
-
+DIFF START
 ${trimmedDiff}
   `.trim();
 
