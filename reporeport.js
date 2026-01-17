@@ -95,21 +95,38 @@ ${diff}
   const trimmedDiff = diff.slice(0, 8000);
 
   const prompt = `
-You are writing a git commit message for the code DIFF.
+You are RepoReport: a git commit assistant.
 
-RULES:
-- Subject must start with: feat:, fix:, chore:, docs:, refactor:, test:
+TASK:
+Given the changed files + diff summary, decide if the changes should be split into multiple commits.
+Then output commit groups with commands.
+
+HARD RULES:
+- Output MUST be valid JSON ONLY. No markdown. No extra text.
+- Use ONLY files listed in FILES CHANGED. Do NOT invent files.
+- Each group must be a meaningful commit.
+- If changes should NOT be split, return exactly 1 group.
+- Subject MUST start with one of: feat:, fix:, chore:, docs:, refactor:, test:
 - Subject must be <= 72 characters
-- Subject must describe the actual code change (not generic)
+- Subject must describe the actual change (not generic)
 - Body must be ONE sentence (<= 120 characters): what changed + why it matters
 - Do NOT mention: "DIFF", "below", "prompt", "rules", "feature", "generate a commit message"
-- Output must be EXACTLY 3 lines and nothing else.
-- COMMAND must include BOTH -m flags.
+- COMMAND must include BOTH -m flags
 
-OUTPUT FORMAT (exact):
-SUBJECT: <text>
-BODY: <text>
-COMMAND: git commit -m "<subject>" -m "<body>"
+OUTPUT JSON SHAPE (exact keys):
+{
+  "needs_split": boolean,
+  "groups": [
+    {
+      "name": string,
+      "files": string[],
+      "subject": string,
+      "body": string,
+      "add_command": string,
+      "commit_command": string
+    }
+  ]
+}
 
 FILES CHANGED:
 ${files}
@@ -117,9 +134,11 @@ ${files}
 DIFF STAT:
 ${stat}
 
-DIFF START
+DIFF:
 ${trimmedDiff}
-  `.trim();
+
+Now output the JSON.
+`.trim();
 
   console.log("\n🤖 Local LLM commit suggestion:\n");
   const reply = await ollamaGenerate(prompt);
